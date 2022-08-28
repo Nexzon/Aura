@@ -1,2 +1,2 @@
 # Aura
-My WIP bot made with Distube with self made playlists
+✨ **Aura**, a better way to listen to music.
