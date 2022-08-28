@@ -1,0 +1,17 @@
+{
+"color" : "8c8ae6",
+"errorColor" : "ff001b",
+"check" : "<:green_tick:1011958608835133510>",
+"error" : "<:error:1011958983453585439>",
+"invite" : "<:invite:1011957779839328319>",
+"disconnect" : "<:kick:1011954452485386260>",
+"volume" : "🔊",
+"loop" : "🔄",
+"skip" : "⏭️",
+"shuffle" : "🔃",
+"pause" : "⏸️",
+"play" : "▶️",
+"resume" : "▶️",
+"stop" : "⏹️",
+"music" : "🎶"
+}
