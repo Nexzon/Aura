@@ -1,0 +1,70 @@
+const {   SlashCommandBuilder,   ChatInputCommandInteraction,   PermissionFlagsBits, EmbedBuilder, PermissionsBitField, ChannelType} = require("discord.js"); 
+const style = require(`${process.cwd()}/style/embed.json`)
+  const { QuickDB } = require('quick.db');
+const db = new QuickDB();
+
+
+module.exports = {
+        data: new SlashCommandBuilder()
+            .setName("volume")
+            .setDescription("Set the voloume for the track")
+            .addStringOption(option => option.setName('percentage').setRequired(true).setDescription('The percentage'))
+        .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
+
+   
+        /**
+         * @param {CommandInteraction} interaction
+         */
+        async execute(interaction, client) {
+
+            try {
+                let volume = parseInt(interaction.options.getString("percentage"))
+            if(interaction.guild.members.me.permissions.has([PermissionsBitField.Flags.Speak]) === false) {
+                interaction.reply({embeds: [new EmbedBuilder()
+         .setColor(style.color)
+       .setAuthor({name: style.errorText, iconURL: style.errorImg})
+         .setDescription(`${style.error} I am missing the **\`SPEAK\`** permission`)]})
+         } else {
+            if(interaction.guild.members.me.permissions.has([PermissionsBitField.Flags.Connect]) === false) {
+                interaction.reply({embeds: [new EmbedBuilder()
+         .setColor(style.color)
+       .setAuthor({name: style.errorText, iconURL: style.errorImg})
+         .setDescription(`${style.error} I am missing the **\`CONNECT\`** permission`)]})
+         } else {
+                        
+                    const queue = client.distube.getQueue(interaction)
+                    let voiceChannel = interaction.member.voice.channel
+                    
+                    if(!queue) return interaction.reply({embeds: [new EmbedBuilder()
+                        .setColor(style.errorColor)
+                        .setTitle("An error occured")
+                        .setDescription(`${style.error} The queue is empty`)], ephemeral: true})
+
+                    if(!voiceChannel) return interaction.reply({embeds: [new EmbedBuilder()
+                        .setColor(style.errorColor)
+                        .setTitle("An error occured")
+                        .setDescription(`${style.error} You are not connected to a voice channel`)], ephemeral: true})
+
+                        let song = await queue.setVolume(volume)
+
+                   
+                    interaction.reply({embeds: [new EmbedBuilder()
+                        .setColor(style.color)
+                        .setDescription(`${style.volume} The volume has been set to **\`${volume}%\`**`)]})
+
+                    }
+         }
+                    } catch(error) {
+                        interaction.reply({embeds: [new EmbedBuilder()
+                            .setColor(style.errorColor)
+                            .setTitle("An error occured")
+                            .setDescription(`${style.error} I could probaly not be in a voice channel 
+                            
+                            **Logged error**
+                            \`\`\`js
+                            ${error}\`\`\``)], ephemeral: true})
+                            console.log(error)
+                    }
+
+            }
+        }
