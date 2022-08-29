@@ -38,7 +38,7 @@ const queue = client.distube.getQueue(interaction)
                         .setTitle("An error occured")
                         .setDescription(`${style.error} The queue is empty`)], ephemeral: true})
 
-                        if(queue.paused === false) return interaction.reply({embeds: [new EmbedBuilder()
+                        if(queue.paused === true) return interaction.reply({embeds: [new EmbedBuilder()
                             .setColor(style.errorColor)
                             .setTitle("An error occured")
                             .setDescription(`${style.error} The queue is not paused`)], ephemeral: true})
