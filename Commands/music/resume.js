@@ -7,7 +7,7 @@ const db = new QuickDB();
 module.exports = {
         data: new SlashCommandBuilder()
             .setName("resume")
-            .setDescription("Pause the playing song")
+            .setDescription("Resume the paused song")
         .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
    
         /**
