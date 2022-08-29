@@ -41,11 +41,7 @@ module.exports = {
                         .setTitle("An error occured")
                         .setDescription(`${style.error} The queue is empty`)], ephemeral: true})
 
-                        if(queue.paused === false) return interaction.reply({embeds: [new EmbedBuilder()
-                            .setColor(style.errorColor)
-                            .setTitle("An error occured")
-                            .setDescription(`${style.error} The queue is not paused`)]})
-
+                        
                     if(!voiceChannel) return interaction.reply({embeds: [new EmbedBuilder()
                         .setColor(style.errorColor)
                         .setTitle("An error occured")
